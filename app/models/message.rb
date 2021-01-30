@@ -1,5 +1,5 @@
 class Message < ApplicationRecord
-  belongs_to :user
+  belongs_to :user # アソシエーションでbelongs_toを指定した場合は、外部キー（今回はuser_id）が存在するというバリデーションは不要
   belongs_to :room
   has_one_attached :image
 
