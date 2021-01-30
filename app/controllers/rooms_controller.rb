@@ -13,7 +13,14 @@ class RoomsController < ApplicationController
     end
   end
 
+  # ルートパスはこのアクション
   def index
+  end
+
+  def destroy
+    room = Room.find(params[:id]) # ビューで変数を使わないから@不要
+    room.destroy
+    redirect_to root_path
   end
 
   private
