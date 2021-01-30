@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
   def index
     @room = Room.find(params[:room_id]) # URLに含まれるroom_idを利用してキー「room_id」の値をparamsを通して受け取っている。
     @message = Message.new
+    @messages = @room.messages.includes(:user) # N+1問題を解決するためincludesを使用してusersテーブルをまるごと検索してくる
   end
 
   def create
@@ -11,7 +12,8 @@ class MessagesController < ApplicationController
     if @message.save
       redirect_to room_messages_path(@room)
     else
-      render "index"
+      @messages = @room.messages.includes(:user) # N+1問題を解決するためincludesを使用してusersテーブルをまるごと検索してくる
+      render :index # "index"
     end
   end
 
